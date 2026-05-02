@@ -4,7 +4,7 @@ A 2D pixel art survival game with local and online multiplayer.
 
 ## Architecture
 
-- **Client**: Godot 4 (GDScript) — rendering, UI, input, local interpolation
+- **Client**: Godot 4.6 (GDScript) — rendering, UI, input, local interpolation
 - **Server**: Go — authoritative world simulation, networking, persistence
 - **Repo**: Monorepo (`client/` and `server/` in one repository)
 
