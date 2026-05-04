@@ -9,12 +9,12 @@ var player_id := 0
 var player_scene = preload("res://player.tscn")
 var players := {}
 
-
-func _ready() -> void:
-	var err := socket.connect_to_host("127.0.0.1", 42069)
+func connect_to_server(host: String, port: int = 42069) -> void:
+	var err := socket.connect_to_host(host, port)
 	if err != OK:
 		print("connect_to_host failed: ", err)
 		return
+	print("Connecting to %s:%d" % [host, port])
 
 
 func _process(_delta: float) -> void:

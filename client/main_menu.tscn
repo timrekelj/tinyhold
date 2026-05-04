@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://sd10d82gfupa"]
+
+[ext_resource type="Theme" uid="uid://ynxy1n6tsx5d" path="res://theme.tres" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://cteg54p1plld5" path="res://main_menu.gd" id="1_7vrkn"]
+[ext_resource type="FontFile" uid="uid://dxjafub83gp3m" path="res://assets/fonts/ThaleahFat.ttf" id="3_fu7sn"]
+
+[sub_resource type="Theme" id="Theme_7vrkn"]
+default_font = ExtResource("3_fu7sn")
+
+[node name="MainMenu" type="Control" unique_id=502466146]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7vrkn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=743213868]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -25.0
+offset_right = 44.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SingleplayerButton" type="Button" parent="VBoxContainer" unique_id=1301109661]
+layout_mode = 2
+theme = ExtResource("1_06t4h")
+text = "singleplayer"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1877846394]
+layout_mode = 2
+
+[node name="ServerIpLineEdit" type="LineEdit" parent="VBoxContainer" unique_id=1451723562]
+layout_mode = 2
+theme = SubResource("Theme_7vrkn")
+placeholder_text = "server ip"
+alignment = 1
+
+[node name="MultiplayerButton" type="Button" parent="VBoxContainer" unique_id=1984465695]
+layout_mode = 2
+theme = ExtResource("1_06t4h")
+text = "Multiplayer"

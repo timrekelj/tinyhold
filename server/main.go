@@ -63,23 +63,31 @@ func gameLoop() {
 		playersMu.Lock()
 
 		type snapshot struct {
-			ID uint16
-			X int32
-			Y int32
+			ID   uint16
+			X    int32
+			Y    int32
 			Conn net.Conn
 		}
 		snaps := make([]snapshot, 0, len(players))
 
 		for _, p := range players {
-			if p.Keys&1 != 0 { p.Y -= speed } // up
-			if p.Keys&2 != 0 { p.Y += speed } // down
-			if p.Keys&4 != 0 { p.X -= speed } // left
-			if p.Keys&8 != 0 { p.X += speed } // right
+			if p.Keys&1 != 0 {
+				p.Y -= speed
+			} // up
+			if p.Keys&2 != 0 {
+				p.Y += speed
+			} // down
+			if p.Keys&4 != 0 {
+				p.X -= speed
+			} // left
+			if p.Keys&8 != 0 {
+				p.X += speed
+			} // right
 
 			snaps = append(snaps, snapshot{
-				ID: p.ID,
-				X: p.X,
-				Y: p.Y,
+				ID:   p.ID,
+				X:    p.X,
+				Y:    p.Y,
 				Conn: p.Conn,
 			})
 		}

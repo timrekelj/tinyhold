@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://ynxy1n6tsx5d"]
+
+[ext_resource type="FontFile" uid="uid://dxjafub83gp3m" path="res://assets/fonts/ThaleahFat.ttf" id="1_e1x85"]
+
+[resource]
+default_font = ExtResource("1_e1x85")

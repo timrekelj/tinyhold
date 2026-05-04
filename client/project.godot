@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Tinyhold"
-run/main_scene="uid://hvdtun2i1isd"
+run/main_scene="uid://sd10d82gfupa"
 config/features=PackedStringArray("4.6", "Forward Plus")
+
+[autoload]
+
+GameSession="*uid://f2bls7cplm88"
 
 [display]
 

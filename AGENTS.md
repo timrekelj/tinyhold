@@ -47,10 +47,6 @@ tinyhold/
 
 Single-player works by launching the Go server in the background on a random localhost port and connecting the Godot client to it. The server is the authority in all modes.
 
-## Protocol
-
-`docs/protocol.md` is the source of truth. Update it first when adding new packets, then implement in both Go and GDScript.
-
 ## Development Notes
 
 - Run the server: `cd server && go run ./cmd/server`
