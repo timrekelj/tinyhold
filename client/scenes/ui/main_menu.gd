@@ -12,12 +12,12 @@ func _on_singleplayer_pressed() -> void:
 	GameSession.host = "127.0.0.1"
 	GameSession.port = 42069
 
-	var server_path := ProjectSettings.globalize_path("res://../server/build/tinyhold-server")
+	var server_path := ProjectSettings.globalize_path("res://../server/tinyhold-server")
 	if not GameSession.start_local_server(server_path):
 		return
 
 	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_file("res://game.tscn")
+	get_tree().change_scene_to_file("res://scenes/game/game.tscn")
 
 func _on_multiplayer_pressed() -> void:
 	var host := ip_line_edit.text.strip_edges()
@@ -28,4 +28,4 @@ func _on_multiplayer_pressed() -> void:
 	GameSession.host = host
 	GameSession.port = 42069
 
-	get_tree().change_scene_to_file("res://game.tscn")
+	get_tree().change_scene_to_file("res://scenes/game/game.tscn")

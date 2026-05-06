@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 enum PacketType { HANDSHAKE, WORLD_CHUNK, PLAYER_INPUT, PLAYER_STATE, ENTITY_UPDATE, HEARTBEAT, DISCONNECT, INVENTORY }
 
@@ -6,7 +6,7 @@ var socket := StreamPeerTCP.new()
 var connected := false
 var player_id := 0
 
-var player_scene = preload("res://player.tscn")
+var player_scene = preload("res://entities/player/player.tscn")
 var players := {}
 
 func connect_to_server(host: String, port: int = 42069) -> void:

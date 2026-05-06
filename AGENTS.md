@@ -35,11 +35,22 @@ tinyhold/
 │   ├── protocol.md       # Byte-level network protocol spec
 │   └── local-dev.md      # How to run client + server
 ├── server/               # Go module (tinyhold/server)
-│   ├── cmd/server/
-│   ├── internal/         # net, world, game, persist
-│   └── pkg/protocol/     # Shared packet types
+│   ├── cmd/server/       # Entry point
+│   ├── internal/
+│   │   ├── protocol/     # Packet types & framing
+│   │   ├── game/         # World simulation & tick loop
+│   │   └── server/       # TCP listener & client I/O
+│   ├── go.mod
+│   └── go.sum
 ├── client/               # Godot 4 project
-│   └── project.godot
+│   ├── project.godot
+│   ├── autoload/         # GameSession singleton
+│   ├── scenes/
+│   │   ├── ui/           # Main menu
+│   │   └── game/         # Gameplay root + network node
+│   ├── entities/
+│   │   └── player/       # Player scene & script
+│   └── assets/
 └── tools/
 ```
 

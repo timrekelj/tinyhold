@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://sd10d82gfupa"]
 
-[ext_resource type="Theme" uid="uid://ynxy1n6tsx5d" path="res://theme.tres" id="1_06t4h"]
-[ext_resource type="Script" uid="uid://cteg54p1plld5" path="res://main_menu.gd" id="1_7vrkn"]
+[ext_resource type="Theme" uid="uid://ynxy1n6tsx5d" path="res://scenes/ui/theme.tres" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://cteg54p1plld5" path="res://scenes/ui/main_menu.gd" id="1_7vrkn"]
 [ext_resource type="FontFile" uid="uid://dxjafub83gp3m" path="res://assets/fonts/ThaleahFat.ttf" id="3_fu7sn"]
 
 [sub_resource type="Theme" id="Theme_7vrkn"]

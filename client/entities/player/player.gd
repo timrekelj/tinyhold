@@ -24,9 +24,9 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("left"): keys |= 4
 	if Input.is_action_pressed("right"): keys |= 8
 
-	var main = get_parent()
-	if main and main.has_method("send_player_input"):
-		main.send_player_input(keys)
+	var game = get_parent()
+	if game and game.has_method("send_player_input"):
+		game.send_player_input(keys)
 
 
 func update_state(x_sub: int, y_sub: int) -> void:
