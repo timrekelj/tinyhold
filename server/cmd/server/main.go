@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
@@ -10,10 +11,15 @@ import (
 )
 
 func main() {
-	addr := ":42069"
-	if len(os.Args) > 1 {
-		addr = os.Args[1]
+	local := flag.Bool("local", false, "Bind to localhost only (127.0.0.1)")
+	port := flag.Int("port", 42069, "Port to listen on")
+	flag.Parse()
+
+	bind := ""
+	if *local {
+		bind = "127.0.0.1"
 	}
+	addr := fmt.Sprintf("%s:%d", bind, *port)
 
 	srv := server.New(addr)
 	if err := srv.Start(); err != nil {

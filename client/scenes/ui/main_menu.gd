@@ -10,9 +10,8 @@ func _ready() -> void:
 
 func _on_singleplayer_pressed() -> void:
 	GameSession.host = "127.0.0.1"
-	GameSession.port = 42069
 
-	var server_path := ProjectSettings.globalize_path("res://../server/tinyhold-server")
+	var server_path := ProjectSettings.globalize_path("res://../server/build/tinyhold-server")
 	if not GameSession.start_local_server(server_path):
 		return
 
