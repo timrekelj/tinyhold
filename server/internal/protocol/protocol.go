@@ -5,17 +5,18 @@ import (
 	"io"
 )
 
-// PacketType identifies the kind of network packet.
 type PacketType byte
 
 const (
 	PacketHandshake    PacketType = iota // Client -> Server: join request
-	PacketWorldChunk                      // Server -> Client: world data
+	PacketWorldChunk                      // Server -> Client: world chunk data
 	PacketPlayerInput                     // Client -> Server: key state
 	PacketPlayerState                     // Server -> Client: position snapshot
+	PacketChunkRequest                    // Client -> Server: request a chunk
+	PacketBlockPlace                      // Client -> Server: request to place block
+	PacketBlockUpdate                     // Server -> Client: block placed broadcast
 )
 
-// Write sends a framed packet to w: [type:1][length:2][payload:N].
 func Write(w io.Writer, ptype PacketType, payload []byte) error {
 	buf := make([]byte, 3+len(payload))
 	buf[0] = byte(ptype)
@@ -25,7 +26,6 @@ func Write(w io.Writer, ptype PacketType, payload []byte) error {
 	return err
 }
 
-// Read reads a framed packet from r and returns its type and payload.
 func Read(r io.Reader) (PacketType, []byte, error) {
 	header := make([]byte, 3)
 	if _, err := io.ReadFull(r, header); err != nil {

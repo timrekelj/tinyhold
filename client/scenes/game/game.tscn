@@ -2,9 +2,17 @@
 
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_cdc7v"]
 [ext_resource type="Script" path="res://scenes/game/network.gd" id="2_mjfeh"]
+[ext_resource type="Script" path="res://scenes/game/world_map.gd" id="3_worldmap"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_cdc7v")
+
+[node name="WorldMap" type="Node2D" parent="."]
+script = ExtResource("3_worldmap")
+
+[node name="Terrain" type="TileMap" parent="WorldMap"]
+
+[node name="Blocks" type="Node2D" parent="WorldMap"]
 
 [node name="Network" type="Node2D" parent="."]
 script = ExtResource("2_mjfeh")

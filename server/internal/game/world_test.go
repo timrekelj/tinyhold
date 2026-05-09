@@ -6,7 +6,7 @@ import (
 )
 
 func TestAddPlayerSequentialIDs(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 
 	p1 := w.AddPlayer()
 	p2 := w.AddPlayer()
@@ -18,7 +18,7 @@ func TestAddPlayerSequentialIDs(t *testing.T) {
 }
 
 func TestAddPlayerSpawnsAtOrigin(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	p := w.AddPlayer()
 
 	if p.X != 0 || p.Y != 0 {
@@ -30,7 +30,7 @@ func TestAddPlayerSpawnsAtOrigin(t *testing.T) {
 }
 
 func TestRemovePlayer(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	w.AddPlayer()
 	w.AddPlayer()
 	w.RemovePlayer(1)
@@ -51,7 +51,7 @@ func TestRemovePlayer(t *testing.T) {
 }
 
 func TestUpdateInput(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	p := w.AddPlayer()
 
 	w.UpdateInput(p.ID, 1)
@@ -66,12 +66,12 @@ func TestUpdateInput(t *testing.T) {
 }
 
 func TestUpdateInputUnknownPlayer(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	w.UpdateInput(999, 1) // should not panic
 }
 
 func TestTickNoInput(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	p := w.AddPlayer()
 
 	snaps := w.Tick()
@@ -104,7 +104,7 @@ func TestTickMovement(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			w := NewWorld()
+			w := NewWorld(12345)
 			p := w.AddPlayer()
 			w.UpdateInput(p.ID, tt.keys)
 
@@ -121,7 +121,7 @@ func TestTickMovement(t *testing.T) {
 }
 
 func TestTickAccumulatesMovement(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	p := w.AddPlayer()
 	w.UpdateInput(p.ID, 8) // right
 
@@ -135,7 +135,7 @@ func TestTickAccumulatesMovement(t *testing.T) {
 }
 
 func TestTickMultiplePlayers(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	a := w.AddPlayer()
 	b := w.AddPlayer()
 
@@ -157,7 +157,7 @@ func TestTickMultiplePlayers(t *testing.T) {
 }
 
 func TestConcurrentAddAndTick(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	var wg sync.WaitGroup
 
 	for i := 0; i < 10; i++ {
@@ -174,7 +174,7 @@ func TestConcurrentAddAndTick(t *testing.T) {
 }
 
 func TestConcurrentUpdateAndTick(t *testing.T) {
-	w := NewWorld()
+	w := NewWorld(12345)
 	p := w.AddPlayer()
 
 	var wg sync.WaitGroup

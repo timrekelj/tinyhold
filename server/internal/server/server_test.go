@@ -10,7 +10,7 @@ import (
 )
 
 func TestStartStop(t *testing.T) {
-	srv := New("127.0.0.1:0")
+	srv := New("127.0.0.1:0", 12345)
 	if err := srv.Start(); err != nil {
 		t.Fatalf("Start failed: %v", err)
 	}
@@ -18,7 +18,7 @@ func TestStartStop(t *testing.T) {
 }
 
 func TestHandshake(t *testing.T) {
-	srv := New("127.0.0.1:0")
+	srv := New("127.0.0.1:0", 12345)
 	if err := srv.Start(); err != nil {
 		t.Fatalf("Start failed: %v", err)
 	}
@@ -59,7 +59,7 @@ func TestHandshake(t *testing.T) {
 }
 
 func TestHandshakeWrongPayload(t *testing.T) {
-	srv := New("127.0.0.1:0")
+	srv := New("127.0.0.1:0", 12345)
 	if err := srv.Start(); err != nil {
 		t.Fatalf("Start failed: %v", err)
 	}
@@ -84,7 +84,7 @@ func TestHandshakeWrongPayload(t *testing.T) {
 }
 
 func TestInputBroadcast(t *testing.T) {
-	srv := New("127.0.0.1:0")
+	srv := New("127.0.0.1:0", 12345)
 	if err := srv.Start(); err != nil {
 		t.Fatalf("Start failed: %v", err)
 	}
@@ -106,12 +106,18 @@ func TestInputBroadcast(t *testing.T) {
 		t.Fatalf("Read handshake response failed: %v", err)
 	}
 
+	for i := 0; i < 25; i++ {
+		if _, _, err := protocol.Read(conn); err != nil {
+			t.Fatalf("Read initial chunk %d failed: %v", i, err)
+		}
+	}
+
 	if err := protocol.Write(conn, protocol.PacketPlayerInput, []byte{0x08, 0x00, 0x00, 0x00, 0x00}); err != nil {
 		t.Fatalf("Write input failed: %v", err)
 	}
 
-	conn.SetDeadline(time.Now().Add(500 * time.Millisecond))
-	ptype, payload, err := protocol.Read(conn)
+	conn.SetDeadline(time.Now().Add(2 * time.Second))
+	ptype, payload, err := readUntilType(conn, protocol.PacketPlayerState)
 	if err != nil {
 		t.Fatalf("Read state failed: %v", err)
 	}
@@ -125,7 +131,7 @@ func TestInputBroadcast(t *testing.T) {
 }
 
 func TestDisconnectRemovesPlayer(t *testing.T) {
-	srv := New("127.0.0.1:0")
+	srv := New("127.0.0.1:0", 12345)
 	if err := srv.Start(); err != nil {
 		t.Fatalf("Start failed: %v", err)
 	}
@@ -158,7 +164,7 @@ func TestDisconnectRemovesPlayer(t *testing.T) {
 }
 
 func TestStopWithConnectedClient(t *testing.T) {
-	srv := New("127.0.0.1:0")
+	srv := New("127.0.0.1:0", 12345)
 	if err := srv.Start(); err != nil {
 		t.Fatalf("Start failed: %v", err)
 	}
@@ -182,7 +188,7 @@ func TestStopWithConnectedClient(t *testing.T) {
 }
 
 func TestMultipleConnections(t *testing.T) {
-	srv := New("127.0.0.1:0")
+	srv := New("127.0.0.1:0", 12345)
 	if err := srv.Start(); err != nil {
 		t.Fatalf("Start failed: %v", err)
 	}
@@ -220,5 +226,17 @@ func TestMultipleConnections(t *testing.T) {
 
 	if numConns != 3 {
 		t.Errorf("conns = %d; want 3", numConns)
+	}
+}
+
+func readUntilType(conn net.Conn, target protocol.PacketType) (protocol.PacketType, []byte, error) {
+	for {
+		ptype, payload, err := protocol.Read(conn)
+		if err != nil {
+			return 0, nil, err
+		}
+		if ptype == target {
+			return ptype, payload, nil
+		}
 	}
 }
